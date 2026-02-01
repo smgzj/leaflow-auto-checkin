@@ -199,13 +199,19 @@ class LeaflowAutoCheckin:
                 lambda driver: "launchpad" in driver.current_url or "workspaces" in driver.current_url or "login" not in driver.current_url
             )
             
-            # 检查当前URL确认登录成功
-            current_url = self.driver.current_url
-            if "launchpad" in current_url or "workspaces" in current_url or "login" not in current_url:
-                logger.info(f"登录成功，当前URL: {current_url}")
-                return True
-            else:
-                raise Exception("登录后未跳转到正确页面")
+             # 检查当前URL确认登录成功
+             current_url = self.driver.current_url
+             if "login" not in current_url:
+             logger.info(f"登录成功，当前URL: {current_url}")
+
+             # 🔥 强制跳转到 launchpad
+             logger.info("跳转到 https://leaflow.net/launchpad")
+             self.driver.get("https://leaflow.net/launchpad")
+             time.sleep(5)
+
+             return True
+              else:
+              raise Exception("登录后仍停留在登录页")
                 
         except TimeoutException:
             # 检查是否登录失败
@@ -640,6 +646,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
