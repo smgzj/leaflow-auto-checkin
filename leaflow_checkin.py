@@ -196,12 +196,12 @@ class LeaflowAutoCheckin:
         # 等待登录完成
         try:
             WebDriverWait(self.driver, 20).until(
-                lambda driver: "dashboard" in driver.current_url or "workspaces" in driver.current_url or "login" not in driver.current_url
+                lambda driver: "launchpad" in driver.current_url or "workspaces" in driver.current_url or "login" not in driver.current_url
             )
             
             # 检查当前URL确认登录成功
             current_url = self.driver.current_url
-            if "dashboard" in current_url or "workspaces" in current_url or "login" not in current_url:
+            if "launchpad" in current_url or "workspaces" in current_url or "login" not in current_url:
                 logger.info(f"登录成功，当前URL: {current_url}")
                 return True
             else:
@@ -640,5 +640,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
